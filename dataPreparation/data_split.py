@@ -91,8 +91,6 @@ if __name__ == '__main__':
         mkdir(args.output_dir + '/train')
         mkdir(args.output_dir + '/dev')
         mkdir(args.output_dir + '/test')
-        if args.add_test_full:
-            mkdir(args.output_dir + '/test_full')
 
     # This line's function is to flip the order of the files.
     # 96->91->21->16->11->6->1.
