@@ -80,6 +80,7 @@ def prepare_subcorpora_from_data() -> None:
                 if spoken == "<self>":
                     continue
                 semiotic_class = semiotic_class.casefold()
+                semiotic_class = semiotic_class.replace(' ', '_')
                 semiotic_vcb[semiotic_class] += 1
                 classdir = join(args.out_dir, semiotic_class)
                 if not isdir(classdir):
@@ -104,16 +105,16 @@ def prepare_subcorpora_from_data() -> None:
             out.write("MKCLS=\"" + args.mckls_binary + "\"\n")
             out.write("\n")
             out.write("${GIZA_PATH}/plain2snt.out src dst\n")
-            out.write("${MKCLS} -m2 -psrc -c15 -Vsrc.classes opt >& mkcls1.log\n")
-            out.write("${MKCLS} -m2 -pdst -c15 -Vdst.classes opt >& mkcls2.log\n")
+            out.write("${MKCLS} -m2 -psrc -c15 -Vsrc.classes opt > mkcls1.log\n")
+            out.write("${MKCLS} -m2 -pdst -c15 -Vdst.classes opt > mkcls2.log\n")
             out.write("${GIZA_PATH}/snt2cooc.out src.vcb dst.vcb src_dst.snt > src_dst.cooc\n")
             out.write(
-                "${GIZA_PATH}/GIZA++ -S src.vcb -T dst.vcb -C src_dst.snt -coocurrencefile src_dst.cooc -p0 0.98 -o GIZA++ >& GIZA++.log\n"
+                "${GIZA_PATH}/GIZA++ -S src.vcb -T dst.vcb -C src_dst.snt -coocurrencefile src_dst.cooc -p0 0.98 -o GIZA++ > GIZA++.log\n"
             )
             out.write("##reverse direction\n")
             out.write("${GIZA_PATH}/snt2cooc.out dst.vcb src.vcb dst_src.snt > dst_src.cooc\n")
             out.write(
-                "${GIZA_PATH}/GIZA++ -S dst.vcb -T src.vcb -C dst_src.snt -coocurrencefile dst_src.cooc -p0 0.98 -o GIZA++reverse >& GIZA++reverse.log\n"
+                "${GIZA_PATH}/GIZA++ -S dst.vcb -T src.vcb -C dst_src.snt -coocurrencefile dst_src.cooc -p0 0.98 -o GIZA++reverse > GIZA++reverse.log\n"
             )
         out_src = open(join(classdir, "src"), 'w', encoding="utf-8")
         out_dst = open(join(classdir, "dst"), 'w', encoding="utf-8")

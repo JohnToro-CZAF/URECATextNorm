@@ -35,14 +35,13 @@ from tqdm import tqdm
 
 
 
-def read_google_data(data_file: str, lang: str, split: str, add_test_full=False):
+def read_google_data(data_file: str, split: str, add_test_full=False):
     """
     The function can be used to read the raw data files of the Google Text Normalization
     dataset (which can be downloaded from https://www.kaggle.com/google-nlu/text-normalization)
 
     Args:
         data_file: Path to the data file. Should be of the form output-xxxxx-of-00100
-        lang: Selected language.
         split: data split
         add_test_full: do not truncate test data i.e. take the whole test file not #num of lines
     Return:
@@ -111,7 +110,7 @@ if __name__ == '__main__':
         elif split_nb == 96:
             cur_split = "test"
 
-        data = read_google_data(data_file=fp, lang=args.lang, split=cur_split)
+        data = read_google_data(data_file=fp, split=cur_split)
         output_file = join(args.output_dir, f'{cur_split}', f'{fn}.csv')
 
         output_f = open(output_file, 'w', encoding='utf-8')

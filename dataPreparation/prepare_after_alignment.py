@@ -44,7 +44,6 @@ parser.add_argument(
 )
 parser.add_argument("--out_filename", required=True, type=str, help='Output file')
 parser.add_argument("--vocab_filename", required=True, type=str, help='Vocab name')
-parser.add_argument("--lang", required=True, type=str, help="Language")
 args = parser.parse_args()
 
 
@@ -80,7 +79,7 @@ def process_file_itn(inputname: str, out: TextIO, keys2replacements: Dict[str, s
                     tags.append("<SELF>")
                     continue
                 src, dst, same_begin, same_end = get_src_and_dst_for_alignment(
-                    cls.casefold(), written, spoken, args.lang
+                    cls.casefold(), written, spoken
                 )
                 same_from_begin = [] if same_begin == "" else same_begin.split(" ")
                 same_from_end = [] if same_end == "" else same_end.split(" ")
