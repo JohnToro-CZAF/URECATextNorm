@@ -16,7 +16,6 @@ then
     rm -r ${CORPUS_DIR}
 fi 
 
-mkdir ${CORPUS_DIR}
 python ${WORK_DIR}/dataPreparation/data_split.py \
     --data_dir=${GOOGLE_CORPUS_DIR} \
     --output_dir=${CORPUS_DIR}
